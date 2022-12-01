@@ -38,7 +38,13 @@
         />
       </q-list>
     </q-drawer>
-
+    <q-footer bordered class="bg-white text-primary">
+      <q-tabs no-caps active-color="primary" indicator-color="transparent" class="text-grey" v-model="tab">
+        <q-btn flat round dense icon="menu" class="q-mx-xl" />
+        <q-btn flat round dense icon="add" class="q-mx-xl" />
+        <q-btn flat round dense icon="person" class="q-mx-xl" />
+      </q-tabs>
+    </q-footer>
     <q-page-container>
       <router-view />
     </q-page-container>

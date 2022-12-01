@@ -17,6 +17,13 @@ const routes = [
     ]
   },
   {
+    path: '/dashboard',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: 'accueil', component: () => import('pages/AccueilPage.vue') }
+    ]
+  },
+  {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue')
   }
