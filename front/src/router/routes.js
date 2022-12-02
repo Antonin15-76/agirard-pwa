@@ -24,6 +24,30 @@ const routes = [
     ]
   },
   {
+    path: '/list/detail/:id',
+    component: () => import('pages/DetailList.vue'),
+    children: [
+    ]
+  },
+  {
+    path: '/task/:id',
+    component: () => import('pages/TaskDetail.vue'),
+    children: [
+    ]
+  },
+  {
+    path: '/task/add',
+    component: () => import('pages/TaskAdd.vue'),
+    children: [
+    ]
+  },
+  {
+    path: '/task/update/:id',
+    component: () => import('pages/TaskUpdate.vue'),
+    children: [
+    ]
+  },
+  {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue')
   }

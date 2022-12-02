@@ -11,6 +11,9 @@ const taskSchema = new Schema({
     type: String,
     required: false
   },
+  isValid: {
+    type: Boolean
+  },
   listId: {
     type: Schema.Types.ObjectId
   }

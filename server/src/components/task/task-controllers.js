@@ -16,6 +16,7 @@ export async function create (ctx) {
     const taskValidationSchema = Joi.object({
       name: Joi.string().required(),
       description: Joi.string().required(),
+      isValid: Joi.boolean().label("validé"),
       listId: Joi.any().required().label('idList')
     })
 
@@ -30,7 +31,11 @@ export async function create (ctx) {
 }
 
 export async function id (ctx) {
-  // console.log(ctx.params)
-  // console.log(ctx.query)
-  ctx.ok({})
+  try {
+    const tasks = await Task.find({ listId: ctx.params.id })
+    console.log(tasks)
+    ctx.ok(tasks)
+  } catch(e) {
+    ctx.badRequest({ message: e.message })
+  }
 }

@@ -38,12 +38,45 @@
         />
       </q-list>
     </q-drawer>
+    <q-drawer
+      v-model="leftMenuOpen"
+      show-if-above
+      bordered
+    >
+      <q-list>
+        <q-item-label
+          header
+        >
+          Mes listes
+        </q-item-label>
+
+        <EssentialLink
+          v-for="link in menuLinks"
+          :key="link.title"
+          v-bind="link"
+        />
+      </q-list>
+    </q-drawer>
     <q-footer bordered class="bg-white text-primary">
       <q-tabs no-caps active-color="primary" indicator-color="transparent" class="text-grey" v-model="tab">
-        <q-btn flat round dense icon="menu" class="q-mx-xl" />
-        <q-btn flat round dense icon="add" class="q-mx-xl" />
+        <q-btn flat round dense icon="menu" @click="toggleLeftMenu" class="q-mx-xl" />
+        <q-btn flat round dense icon="add" class="q-mx-xl"  @click="add = true" />
         <q-btn flat round dense icon="person" class="q-mx-xl" />
       </q-tabs>
+      <q-dialog v-model="add" persistent>
+        <q-card style="min-width: 350px">
+          <q-card-section>
+            <div class="text-h6">Créer une nouvelle liste</div>
+          </q-card-section>
+          <q-card-section class="q-pt-none">
+            <q-input aria-placeholder="Ex=Courses" dense v-model="address" autofocus @keyup.enter=" add = false" />
+          </q-card-section>
+          <q-card-actions align="right" class="text-primary">
+            <q-btn flat label="Cancel" v-close-popup />
+            <q-btn flat label="Créer" v-close-popup />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
     </q-footer>
     <q-page-container>
       <router-view />
@@ -100,6 +133,21 @@ const linksList = [
   }
 ]
 
+const linksListMenu = [
+  {
+    title: 'Courses',
+    caption: 'quasar.dev',
+    icon: 'list',
+    link: 'http://localhost:9000/#/list/detail/'
+  },
+  {
+    title: 'Ecoles',
+    caption: 'github.com/quasarframework',
+    icon: 'list',
+    link: 'http://localhost:9000/#/list/detail/'
+  }
+]
+
 export default defineComponent({
   name: 'MainLayout',
 
@@ -109,12 +157,21 @@ export default defineComponent({
 
   setup () {
     const leftDrawerOpen = ref(false)
+    const leftMenuOpen = ref(false)
 
     return {
+      add: ref(false),
+
+      address: ref(''),
       essentialLinks: linksList,
+      menuLinks: linksListMenu,
       leftDrawerOpen,
+      leftMenuOpen,
       toggleLeftDrawer () {
         leftDrawerOpen.value = !leftDrawerOpen.value
+      },
+      toggleLeftMenu () {
+        leftMenuOpen.value = !leftMenuOpen.value
       }
     }
   }

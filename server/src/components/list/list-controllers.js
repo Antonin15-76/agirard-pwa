@@ -3,9 +3,9 @@ import Joi from 'joi'
 
 export async function index (ctx) {
   try {
-    const listes = await List.find({})
-    console.log(listes)
-    ctx.ok(listes)
+    const lists = await List.find({})
+    console.log(lists)
+    ctx.ok(lists)
   } catch(e) {
     ctx.badRequest({ message: e.message })
   }
@@ -15,7 +15,7 @@ export async function create (ctx) {
   try {
     console.log(ctx.request.body)
     const listValidationSchema = Joi.object({
-      title: Joi.string().required()
+      name: Joi.string().required()
     })
 
     const { error, value } = listValidationSchema.validate(ctx.request.body)
