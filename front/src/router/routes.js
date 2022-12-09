@@ -36,7 +36,7 @@ const routes = [
     ]
   },
   {
-    path: '/task/add',
+    path: '/task/add/:id',
     component: () => import('pages/TaskAdd.vue'),
     children: [
     ]

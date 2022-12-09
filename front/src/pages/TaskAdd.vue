@@ -42,7 +42,7 @@
                     :rules="[ val => val && val.length > 0 || 'Please type something']"
                   />
                   <div>
-                    <q-btn label="Submit" type="submit" color="primary"/>
+                    <q-btn label="Submit" type="submit"  color="primary"/>
                     <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
                   </div>
                 </q-form>
@@ -50,32 +50,28 @@
         </q-page-container>
     </q-layout>
 </template>
-<script >
+<script setup>
 import { ref } from 'vue'
+import { createTask } from 'app/src/services/tasks'
+import { useRoute } from 'vue-router'
 
-export default {
-  hasHistory () {
-    return window.history.length > 2
-  },
-  setup () {
-    const name = ref(null)
-    const describe = ref(null)
-    console.log(name)
-    return {
-      name,
-      describe,
+const route = useRoute()
+const id = route.params.id
+const name = ref(null)
+const describe = ref(null)
 
-      onSubmit () {
+function hasHistory () {
+  return window.history.length > 2
+}
 
-      },
-
-      onReset () {
-        name.value = null
-        describe.value = null
-      }
-    }
+function onSubmit () {
+  const data = {
+    name: name.value,
+    description: describe.value,
+    isValid: false,
+    listId: id
   }
-
+  return createTask(data)
 }
 
 </script>

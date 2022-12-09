@@ -18,12 +18,14 @@
                           <q-card-section>
                             <div class="text-h6">Modifier une nouvelle liste</div>
                           </q-card-section>
-                          <q-card-section class="q-pt-none">
-                            <q-input dense v-model="address" autofocus @keyup.enter=" dialogUpdate = false" />
+                          <q-card-section class="q-pt-none" v-for="item in tasksReactive" :key="item._id">
+                            <q-input dense v-model="item.name" autofocus @keyup.enter=" dialogUpdate = false" />
+                            <q-input dense v-model="item.description" autofocus @keyup.enter=" dialogUpdate = false" />
+                            <q-checkbox v-model="item.isValid" autofocus @keyup.enter=" dialogUpdate = false"/>
                           </q-card-section>
                           <q-card-actions align="right" class="text-primary">
                             <q-btn flat label="Cancel" v-close-popup />
-                            <q-btn flat label="Créer" v-close-popup />
+                            <q-btn flat label="Modifier" @click="onSubmit" v-close-popup />
                           </q-card-actions>
                         </q-card>
                       </q-dialog>
@@ -45,7 +47,7 @@
                                     filled
                                     autofocus @keyup.enter="prompt = false"
                                     v-model="list"
-                                    :options="options"
+                                    :options=options
                                     label="Standard"
                                     emit-value
                                     map-options
@@ -56,7 +58,7 @@
                           </q-card-section>
                           <q-card-actions align="right" class="text-primary">
                             <q-btn flat label="Cancel" v-close-popup />
-                            <q-btn flat label="Déplacer" v-close-popup />
+                            <q-btn flat label="Déplacer" @click="move" v-close-popup />
                           </q-card-actions>
                         </q-card>
                       </q-dialog>
@@ -83,37 +85,60 @@
           </q-btn>
         </q-tabs>
         </q-header>
-        <q-page-container>
-            <p>fdds</p>
-            <h5>fd fd</h5>
-            <p>dfd </p>
-            <h6>fdd</h6>
-            <p>yyrty</p>
-            <h6> tret t r</h6>
+        <q-page-container v-for="item in tasksReactive" :key="item._id">
+            <p>Task</p>
+            <h4>{{item.name}}</h4>
+            <p>Description </p>
+            <h5>{{item.description}}</h5>
+            <p>Terminé</p>
+            <h5 v-if="item.isValid">Oui</h5>
+            <h5 v-else>Non</h5>
         </q-page-container>
     </q-layout>
 </template>
 <script setup>
+import { getAllLists } from 'src/services/lists'
+import { getTask, updateTask, moveInOtherList } from 'src/services/tasks'
 import { ref } from 'vue'
+import { useRoute } from 'vue-router'
 
 const prompt = ref(false)
-const dialog = ref(false)
+const route = useRoute()
+const id = route.params.id
+// const dialog = ref(false)
 const dialogUpdate = ref(false)
 const list = ref('')
-const options = [
-  {
-    label: 'Google',
-    value: 'goog'
-  },
-  {
-    label: 'Facebook',
-    value: 'fb'
-  },
-  {
-    label: 'Twitter',
-    value: 'twt'
-  }
-]
+const tasksReactive = ref([])
+const lists = ref([])
+const options = ref([]);
+
+(async () => {
+  const { data: dataLists } = await getAllLists()
+  const { data } = await getTask(id)
+
+  tasksReactive.value = data
+  lists.value = dataLists
+  options.value = dataLists.map(x => {
+    return {
+      label: x.name,
+      value: x._id
+    }
+  })
+})()
+
+console.log(options)
+console.log(lists)
+console.log(tasksReactive)
+
+function onSubmit () {
+  return updateTask(id, { data: tasksReactive.value })
+}
+
+function move () {
+  console.log(list)
+  return moveInOtherList(id, { listId: list.value })
+}
+
 console.log(prompt)
 function hasHistory () { return window.history.length > 2 }
 

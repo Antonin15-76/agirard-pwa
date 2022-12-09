@@ -12,24 +12,24 @@
                 <q-menu cover auto-close>
                   <q-list>
                     <q-item clickable>
-                      <q-item-section @click=" dialogUpdate = true">Modifier</q-item-section>
+                      <q-item-section @click="dialogOnClick(item._id), dialogUpdate = true">Modifier</q-item-section>
                       <q-dialog v-model="dialogUpdate" persistent>
                         <q-card style="min-width: 350px">
                           <q-card-section>
-                            <div class="text-h6">Modifier une nouvelle liste</div>
+                            <div class="text-h6">Modifier le nom de la liste</div>
                           </q-card-section>
-                          <q-card-section class="q-pt-none">
-                            <q-input dense v-model="address" autofocus @keyup.enter=" dialogUpdate = false" />
+                          <q-card-section class="q-pt-none" v-for="item in listData" :key="item._id">
+                            <q-input dense v-model="item.name" autofocus @keyup.enter=" dialogUpdate = false" />
                           </q-card-section>
                           <q-card-actions align="right" class="text-primary">
                             <q-btn flat label="Cancel" v-close-popup />
-                            <q-btn flat label="Créer" v-close-popup />
+                            <q-btn flat label="Modifier" @click="update" v-close-popup />
                           </q-card-actions>
                         </q-card>
                       </q-dialog>
                     </q-item>
                     <q-item clickable>
-                      <q-item-section @click="dialog = true">Supprimer</q-item-section>
+                      <q-item-section @click="dialogOnClick(item._id), dialog = true">Supprimer</q-item-section>
                       <q-dialog v-model="dialog" persistent>
                         <q-card style="min-width: 350px">
                           <q-card-section>
@@ -40,7 +40,7 @@
                           </q-card-section>
                           <q-card-actions align="right" class="text-primary">
                             <q-btn flat label="Cancel" v-close-popup />
-                            <q-btn flat label="Supprimer" v-close-popup />
+                            <q-btn flat label="Supprimer" @click="onSubmitDelete" v-close-popup />
                           </q-card-actions>
                         </q-card>
                       </q-dialog>
@@ -65,11 +65,12 @@
     </div>
 </template>
 <script setup>
-import { getAllLists } from 'src/services/lists'
+import { getAllLists, updateList, getList, deleteList } from 'src/services/lists'
 import { getTasksList } from 'src/services/tasks'
 import { ref } from 'vue'
 
 const tasksReactive = ref([])
+const listData = ref([])
 const dialog = ref(false)
 const dialogUpdate = ref(false);
 
@@ -88,6 +89,20 @@ const dialogUpdate = ref(false);
   console.log(reformData)
   tasksReactive.value = reformData
 })()
+
+async function dialogOnClick (id) {
+  const { data } = await getList(id)
+  console.log(data)
+  listData.value = data
+}
+
+function update () {
+  return updateList({ data: listData.value })
+}
+
+function onSubmitDelete () {
+  return deleteList(listData.value)
+}
 
 console.log(tasksReactive.value)
 </script>
