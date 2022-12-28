@@ -1,26 +1,26 @@
 const routes = [
+  // {
+  //   path: '/',
+  //   component: () => import('layouts/MainLayout.vue'),
+  //   children: [
+  //     { path: '', component: () => import('pages/IndexPage.vue') }
+  //   ]
+  // },
+  // {
+  //   path: '/tuto',
+  //   component: () => import('layouts/MainLayout.vue'),
+  //   children: [
+  //     { path: 'v2', component: () => import('pages/TutoPage.vue') },
+  //     {
+  //       path: 'v3', component: () => import('pages/TutoPageVue3.vue')
+  //     }
+  //   ]
+  // },
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/IndexPage.vue') }
-    ]
-  },
-  {
-    path: '/tuto',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [
-      { path: 'v2', component: () => import('pages/TutoPage.vue') },
-      {
-        path: 'v3', component: () => import('pages/TutoPageVue3.vue')
-      }
-    ]
-  },
-  {
-    path: '/dashboard',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [
-      { path: 'accueil', component: () => import('pages/AccueilPage.vue') }
+      { path: '', component: () => import('pages/AccueilPage.vue') }
     ]
   },
   {

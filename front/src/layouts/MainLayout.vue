@@ -176,8 +176,11 @@ export default defineComponent({
         console.log('hj')
         leftMenuOpen.value = !leftMenuOpen.value
       },
-      onSubmit () {
-        return createList({ data: nameList.value })
+      async onSubmit () {
+        const mutation = await createList({ data: nameList.value })
+        if (mutation.status === 200) {
+          location.reload()
+        }
       }
     }
   }

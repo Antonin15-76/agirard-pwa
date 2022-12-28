@@ -64,14 +64,17 @@ function hasHistory () {
   return window.history.length > 2
 }
 
-function onSubmit () {
+async function onSubmit () {
   const data = {
     name: name.value,
     description: describe.value,
     isValid: false,
     listId: id
   }
-  return createTask(data)
+  const mutation = await createTask(data)
+  if (mutation.status === 200) {
+    location.href = '/#/list/detail/' + id
+  }
 }
 
 </script>

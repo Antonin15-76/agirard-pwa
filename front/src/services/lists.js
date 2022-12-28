@@ -33,3 +33,11 @@ export function deleteList (data) {
   console.log(newObject)
   return api.delete('/lists/' + newObject._id)
 }
+
+export function updateListName (data) {
+  return api.put('/lists/' + data.id, { data })
+}
+
+export function deleteListById (id) {
+  return api.delete('/lists/' + id)
+}

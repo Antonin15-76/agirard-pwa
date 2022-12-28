@@ -18,7 +18,6 @@
                 <q-form
                   @submit="onSubmit"
                   @reset="onReset"
-                  class="q-gutter-md"
                 >
                   <q-input
                     filled
@@ -74,14 +73,18 @@ function hasHistory () {
   return window.history.length > 2
 }
 
-function onSubmit () {
+async function onSubmit () {
   const data = {
     name: name.value,
     description: describe.value,
     isValid: isValid.value,
     listId: listId.value
   }
-  return updateTaskForm(id, { data })
+
+  const mutation = await updateTaskForm(id, { data })
+  if (mutation.status === 200) {
+    location.href = '/#/list/detail/' + data.listId
+  }
 }
 
 </script>
