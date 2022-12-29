@@ -61,7 +61,6 @@ const isValid = ref(null);
 
 (async () => {
   const { data } = await getTask(id)
-  console.log(data)
   tasksReactive.value = data
   name.value = data[0].name
   describe.value = data[0].description

@@ -1,6 +1,6 @@
 <template>
     <q-layout>
-        <q-header elevated class="headerClass">
+        <q-header elevated>
             <q-tabs indicator-color="transparent" class="text-grey" v-model="tab">
               <q-btn icon="left"
               flat
@@ -211,7 +211,6 @@ async function updateListSubmit () {
     id,
     name: name.value
   }
-  console.log(dataList)
   const mutation = await updateListName(dataList)
   if (mutation.status === 200) {
     location.reload()
@@ -228,11 +227,3 @@ async function supList () {
 function hasHistory () { return window.history.length > 2 }
 
 </script>
-<style lang="sass" scoped>
-header
-  height: 50px
-
-tabs
-  height: 50px
-
-</style>

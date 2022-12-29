@@ -139,7 +139,6 @@ async function deleteTaskSubmit () {
   }
 }
 
-console.log(prompt)
 function hasHistory () { return window.history.length > 2 }
 
 </script>

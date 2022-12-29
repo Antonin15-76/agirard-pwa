@@ -72,28 +72,23 @@ import { ref } from 'vue'
 const tasksReactive = ref([])
 const listData = ref([])
 const dialog = ref(false)
-const dialogUpdate = ref(false)
-console.log(dialogUpdate);
+const dialogUpdate = ref(false);
 
 (async () => {
   const { data } = await getAllLists()
   const reformData = await Promise.all(data.map(async x => {
     const { data: dataTask } = await getTasksList(x._id)
-    console.log(dataTask)
-    console.log(x)
     const newData = {
       ...x,
       tasks: dataTask
     }
     return newData
   }))
-  console.log(reformData)
   tasksReactive.value = reformData
 })()
 
 async function dialogOnClick (id) {
   const { data } = await getList(id)
-  console.log(data)
   listData.value = data
 }
 
@@ -111,7 +106,6 @@ async function onSubmitDelete () {
   }
 }
 
-console.log(tasksReactive.value)
 </script>
 <style lang="sass" scoped>
 .my-card

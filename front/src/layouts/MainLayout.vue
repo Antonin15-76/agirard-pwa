@@ -145,15 +145,10 @@ export default defineComponent({
     const leftDrawerOpen = ref(false)
     const leftMenuOpen = ref(false)
     const nameList = ref([])
-    const arrayLinks = ref([])
-
-    console.log(leftMenuOpen)
-    const test = getAllLists()
-    console.log(test);
+    const arrayLinks = ref([]);
 
     (async () => {
       const { data } = await getAllLists()
-      console.log(data)
 
       arrayLinks.value = data.map(x => ({
         title: x.name,
@@ -173,7 +168,6 @@ export default defineComponent({
         leftDrawerOpen.value = !leftDrawerOpen.value
       },
       toggleLeftMenu () {
-        console.log('hj')
         leftMenuOpen.value = !leftMenuOpen.value
       },
       async onSubmit () {

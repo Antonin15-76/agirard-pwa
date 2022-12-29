@@ -12,7 +12,6 @@ export async function index (ctx) {
 
 export async function create (ctx) {
   try {
-    console.log('15',ctx.request.body)
     const taskValidationSchema = Joi.object({
       name: Joi.string().required(),
       description: Joi.string().required(),
@@ -33,7 +32,6 @@ export async function create (ctx) {
 export async function listId (ctx) {
   try {
     const tasks = await Task.find({ listId: ctx.params.id })
-    console.log(tasks)
     ctx.ok(tasks)
   } catch(e) {
     ctx.badRequest({ message: e.message })
@@ -41,10 +39,8 @@ export async function listId (ctx) {
 }
 
 export async function id (ctx) {
-  console.log('44', ctx.params.id)
   try {
     const tasks = await Task.find({ _id: ctx.params.id })
-    console.log('46', tasks)
     ctx.ok(tasks)
   } catch(e) {
     ctx.badRequest({ message: e.message })
@@ -52,7 +48,6 @@ export async function id (ctx) {
 }
 
 export async function update (ctx) {
-  console.log(ctx.request.body)
   const data = ctx.request.body.data
 
   try {
@@ -66,7 +61,6 @@ export async function update (ctx) {
 }
 
 export async function updateListId (ctx) {
-  console.log('68', ctx.request.body)
   const listId = ctx.request.body.listId
 
   try {
@@ -80,7 +74,6 @@ export async function updateListId (ctx) {
 }
 
 export async function deleteTask (ctx) {
-  console.log('83', ctx.params.id)
   try {
     const tasks = await Task.deleteOne(
       { _id: ctx.params.id })

@@ -12,7 +12,6 @@ export async function index (ctx) {
 
 export async function create (ctx) {
   try {
-    console.log(ctx.request.body)
     const exempleValidationSchema = Joi.object({
       firstname: Joi.string().required(),
       lastname: Joi.string().required(),

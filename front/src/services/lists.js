@@ -9,13 +9,11 @@ export function getList (id) {
 }
 
 export function updateList (data) {
-  console.log(data)
   const newObject = data.data.reduce(
     (accumulator, currentValue) => {
       return ('')
     }
   )
-  console.log(newObject)
   return api.put('/lists/' + newObject._id, { newObject })
 }
 
@@ -24,13 +22,11 @@ export function createList (data) {
 }
 
 export function deleteList (data) {
-  console.log(data)
   const newObject = data.reduce(
     (accumulator, currentValue) => {
       return ('')
     }
   )
-  console.log(newObject)
   return api.delete('/lists/' + newObject._id)
 }
 
