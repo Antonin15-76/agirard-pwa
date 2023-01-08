@@ -1,24 +1,19 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
+    <q-toolbar>
+        <q-toolbar-title>
+          Dashboard
+        </q-toolbar-title>
+
         <q-btn
           flat
           dense
           round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
+          class="circleButton"
+          icon="person"
+          aria-label="Profil"
         />
-
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
-    </q-header>
-
     <q-drawer
       v-model="leftDrawerOpen"
       show-if-above
@@ -180,3 +175,8 @@ export default defineComponent({
   }
 })
 </script>
+<style lang="sass" scoped>
+.circleButton
+  border-radius: 35px
+  border: solid 0.5px
+</style>
