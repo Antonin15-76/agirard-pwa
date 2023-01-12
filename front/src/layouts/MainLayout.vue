@@ -45,6 +45,10 @@
           Mes listes
         </q-item-label>
 
+        <div class="size">
+          <q-btn icon="left" type="submit" @click="add = true" class="center">Créer une liste</q-btn>
+        </div>
+
         <EssentialLink
           v-for="link in menuLinks"
           :key="link.title"
@@ -53,9 +57,9 @@
       </q-list>
     </q-drawer>
     <q-footer bordered class="bg-white text-primary">
-      <q-tabs no-caps active-color="primary" indicator-color="transparent" class="text-grey" v-model="tab">
+      <q-tabs no-caps active-color="primary" indicator-color="transparent" class="text-grey tab" v-model="tab">
         <q-btn flat round dense icon="menu" @click="toggleLeftMenu" class="q-mx-xl" />
-        <q-btn flat round dense icon="add" class="q-mx-xl"  @click="add = true" />
+        <q-btn round dense icon="add" class="q-mx-xl violet"  @click="add = true" />
         <q-btn flat round dense icon="person" class="q-mx-xl" />
       </q-tabs>
       <q-dialog v-model="add" persistent>
@@ -67,8 +71,8 @@
             <q-input aria-placeholder="Ex=Courses" dense v-model="nameList" autofocus @keyup.enter=" add = false" />
           </q-card-section>
           <q-card-actions align="right" class="text-primary">
-            <q-btn flat label="Cancel" v-close-popup />
-            <q-btn flat label="Créer" @click="onSubmit" v-close-popup />
+            <q-btn flat color="black" label="Cancel" v-close-popup />
+            <q-btn flat class="violet" label="Créer" @click="onSubmit" v-close-popup />
           </q-card-actions>
         </q-card>
       </q-dialog>
@@ -179,4 +183,19 @@ export default defineComponent({
 .circleButton
   border-radius: 35px
   border: solid 0.5px
+
+.tab
+  height: 50px
+
+.violet
+  background-color: #7F00FF
+
+.center
+  width: 100%
+  background-color: #7F00FF
+
+.size
+  padding: 10px 20px
+  width: 100%
+
 </style>

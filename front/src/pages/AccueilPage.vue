@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>Bonjour, Tom Dupont!</h2>
+        <h2 class="title">Bonjour, Tom Dupont!</h2>
       <q-card v-for="item in tasksReactive" :key="item._id" flat bordered class="my-card bg-grey-1">
         <q-card-section>
           <div class="row items-center no-wrap">
@@ -22,8 +22,8 @@
                               <q-input dense v-model="item.name" autofocus @keyup.enter=" dialogUpdate = false" />
                             </q-card-section>
                             <q-card-actions align="right" class="text-primary">
-                              <q-btn flat label="Cancel" v-close-popup />
-                              <q-btn flat label="Modifier" @click="update" v-close-popup />
+                              <q-btn flat color="black" label="Cancel" v-close-popup />
+                              <q-btn class="violet" label="Modifier" @click="update" v-close-popup />
                             </q-card-actions>
                           </q-card>
                         </q-dialog>
@@ -39,8 +39,8 @@
                             <p>Vous êtes sur le point de supprimer votre liste. Êtes vous sûr de vouloir faire ça ?</p>
                           </q-card-section>
                           <q-card-actions align="right" class="text-primary">
-                            <q-btn flat label="Cancel" v-close-popup />
-                            <q-btn flat label="Supprimer" @click="onSubmitDelete" v-close-popup />
+                            <q-btn flat color="black" label="Cancel" v-close-popup />
+                            <q-btn color="red" label="Supprimer" @click="onSubmitDelete" v-close-popup />
                           </q-card-actions>
                         </q-card>
                       </q-dialog>
@@ -115,4 +115,9 @@ async function onSubmitDelete () {
 .cardSection
   border-radius: 3px
 
+.violet
+  background-color: #7F00FF
+
+.title
+  padding: 10px
 </style>

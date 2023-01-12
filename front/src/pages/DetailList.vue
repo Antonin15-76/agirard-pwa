@@ -1,12 +1,11 @@
 <template>
     <q-layout>
         <q-header elevated>
-            <q-tabs indicator-color="transparent" class="text-grey" v-model="tab">
-              <q-btn icon="left"
-              flat
+            <q-tabs class="text-grey tab" v-model="tab">
+              <q-btn
               @click="hasHistory()
               ? $router.go(-1)
-              : $router.push('/')" class="my-5 btn btn-outline-success q-mr-auto">&laquo;
+              : $router.push('/')" class="btn-outline-success q-mr-sm buttonBack">&lt;
               </q-btn>
               <h5 class="q-mx-auto">{{ list[0]?.name }}</h5>
               <q-btn color="grey-7" round flat icon="more_vert" class="q-ml-auto">
@@ -23,8 +22,8 @@
                                 <q-input dense v-model="name" autofocus @keyup.enter=" dialogUpdate = false" />
                               </q-card-section>
                               <q-card-actions align="right" class="text-primary">
-                                <q-btn flat label="Cancel" v-close-popup />
-                                <q-btn flat label="Modifier" @click="updateListSubmit" v-close-popup />
+                                <q-btn flat color="black" label="Cancel" v-close-popup />
+                                <q-btn class="violet2" label="Modifier" @click="updateListSubmit" v-close-popup />
                               </q-card-actions>
                             </q-card>
                           </q-dialog>
@@ -40,8 +39,8 @@
                                 <p>Vous êtes sur le point de supprimer votre liste. Êtes vous sûr de vouloir faire ça ?</p>
                               </q-card-section>
                               <q-card-actions align="right" class="text-primary">
-                                <q-btn flat label="Cancel" v-close-popup />
-                                <q-btn flat label="Supprimer" @click="supList" v-close-popup />
+                                <q-btn flat color="black" label="Cancel" v-close-popup />
+                                <q-btn color="red" label="Supprimer" @click="supList" v-close-popup />
                               </q-card-actions>
                             </q-card>
                           </q-dialog>
@@ -53,7 +52,7 @@
         </q-header>
         <q-footer bordered class="bg-white text-primary">
             <q-tabs no-caps active-color="primary" indicator-color="transparent" class="text-grey" v-model="tab">
-              <q-btn flat round dense icon="add" @click="$router.push('/task/add/' + id)" class="q-mx-xl" />
+              <q-btn round dense icon="add" @click="$router.push('/task/add/' + id)" class="violet" />
             </q-tabs>
           </q-footer>
         <q-page-container v-if="tasksReactive.length > 0">
@@ -84,14 +83,14 @@
                                   <q-dialog v-model="dialog" persistent>
                                       <q-card style="min-width: 350px">
                                         <q-card-section>
-                                          <div class="text-h6">Supprimer la liste</div>
+                                          <div class="text-h6">Supprimer la tâche</div>
                                         </q-card-section>
                                         <q-card-section class="q-pt-none">
-                                          <p>Vous êtes sur le point de supprimer votre liste. Êtes vous sûr de vouloir faire ça ?</p>
+                                          <p>Vous êtes sur le point de supprimer votre tâche. Êtes vous sûr de vouloir faire ça ?</p>
                                         </q-card-section>
                                         <q-card-actions align="right" class="text-primary">
-                                          <q-btn flat label="Cancel" v-close-popup />
-                                          <q-btn flat @click="deleteTaskOnSubmit(item._id)" label="Supprimer" v-close-popup />
+                                          <q-btn flat color="black" label="Cancel" v-close-popup />
+                                          <q-btn color="red" @click="deleteTaskOnSubmit(item._id)" label="Supprimer" v-close-popup />
                                         </q-card-actions>
                                       </q-card>
                                     </q-dialog>
@@ -112,7 +111,7 @@
                       <div v-if="item.isValid">
                        <q-item tag="label" v-ripple>
                         <q-item-section side top>
-                        <q-checkbox v-model="item.isValid" @click="updateIsValid(item._id, false)"/>
+                        <q-checkbox color="blue" v-model="item.isValid" @click="updateIsValid(item._id, false)"/>
                         </q-item-section>
 
                         <q-item-section>
@@ -132,14 +131,14 @@
                                   <q-dialog v-model="dialog" persistent>
                                       <q-card style="min-width: 350px">
                                         <q-card-section>
-                                          <div class="text-h6">Supprimer la liste</div>
+                                          <div class="text-h6">Supprimer la tâche</div>
                                         </q-card-section>
                                         <q-card-section class="q-pt-none">
-                                          <p>Vous êtes sur le point de supprimer votre liste. Êtes vous sûr de vouloir faire ça ?</p>
+                                          <p>Vous êtes sur le point de supprimer votre tâche. Êtes vous sûr de vouloir faire ça ?</p>
                                         </q-card-section>
                                         <q-card-actions align="right" class="text-primary">
-                                          <q-btn flat label="Cancel" v-close-popup />
-                                          <q-btn flat label="Supprimer" @click="deleteTaskOnSubmit(item._id)" v-close-popup />
+                                          <q-btn flat color="black" label="Cancel" v-close-popup />
+                                          <q-btn color="red" label="Supprimer" @click="deleteTaskOnSubmit(item._id)" v-close-popup />
                                         </q-card-actions>
                                       </q-card>
                                     </q-dialog>
@@ -227,3 +226,18 @@ async function supList () {
 function hasHistory () { return window.history.length > 2 }
 
 </script>
+<style lang="sass" scoped>
+.violet
+  background-color: #7F00FF
+  margin: 10px 45%
+
+.violet2
+  background-color: #7F00FF
+
+.buttonBack
+  margin-left: 10px
+  margin-right: 25px
+
+.tab
+  height: 60px
+</style>

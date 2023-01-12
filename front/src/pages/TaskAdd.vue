@@ -1,28 +1,20 @@
 <template>
     <q-layout>
         <q-header elevated>
-            <q-tabs no-caps active-color="primary" indicator-color="transparent" class="text-grey q-mx-sm" v-model="tab">
-            <q-btn icon="left"
-            flat
-            @click="hasHistory()
-            ? $router.go(-1)
-            : $router.push('/')" class="my-5 btn btn-outline-success">&laquo;
-          </q-btn>
-          <q-btn
-          flat
-          @click="hasHistory()
-          ? $router.go(-1)
-          : $router.push('/')" class="my-5 btn btn-outline-success">&laquo;
-          Annuler
-        </q-btn>        </q-tabs>
+            <q-tabs no-caps active-color="primary" indicator-color="transparent" class="text-grey q-mx-sm tab" v-model="tab">
+              <q-btn
+              @click="hasHistory()
+              ? $router.go(-1)
+              : $router.push('/')" class="my-5 btn btn-outline-success">&lt;
+            </q-btn>
+        </q-tabs>
         </q-header>
         <q-page-container>
+          <div style="padding: 0px 20px">
             <h4>Créer une tâche</h4>
-            <div class="q-pa-md" style="max-width: 400px">
-
+            <div class="q-pa-sm" style="max-width: 400px">
                 <q-form
                   @submit="onSubmit"
-                  @reset="onReset"
                   class="q-gutter-md"
                 >
                   <q-input
@@ -41,13 +33,15 @@
                     lazy-rules
                     :rules="[ val => val && val.length > 0 || 'Please type something']"
                   />
-                  <div>
-                    <q-btn label="Submit" type="submit"  color="primary"/>
-                    <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
-                  </div>
                 </q-form>
               </div>
+            </div>
         </q-page-container>
+        <q-footer>
+          <div class="violet">
+            <q-btn icon="left" type="submit" @click="onSubmit" class="center">Créer</q-btn>
+          </div>
+        </q-footer>
     </q-layout>
 </template>
 <script setup>
@@ -78,3 +72,14 @@ async function onSubmit () {
 }
 
 </script>
+<style lang="sass" scoped>
+.center
+  width: 100%
+  background-color: #7F00FF
+
+.violet
+  padding: 10px 20px
+  width: 100%
+.tab
+  height: 60px
+</style>
