@@ -1,6 +1,43 @@
 <template>
   <q-layout>
     <q-header elevated>
+      <q-dialog v-model="prompt" persistent>
+        <q-card style="min-width: 350px">
+          <q-card-section>
+            <div class="text-h6">Déplacer la tâche dans une liste</div>
+          </q-card-section>
+          <q-card-section class="q-pt-none">
+            <div class="q-pa-md" style="max-width: 300px">
+              <div class="q-gutter-md">
+                <q-badge color="secondary" multi-line>
+                  Sélectionner la liste: "{{ model }}"
+                </q-badge>
+                <q-select filled autofocus @keyup.enter="prompt = false" v-model="list" :options=options
+                  label="Standard" emit-value map-options />
+              </div>
+            </div>
+            <!-- <q-input dense v-model="address" autofocus @keyup.enter="prompt = false" /> -->
+          </q-card-section>
+          <q-card-actions align="right" class="text-primary">
+            <q-btn flat color="black" label="Cancel" v-close-popup />
+            <q-btn class="violet2" label="Déplacer" @click="move" v-close-popup />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
+      <q-dialog v-model="dialogSup" persistent>
+        <q-card style="min-width: 350px">
+          <q-card-section>
+            <div class="text-h6">Supprimer la liste</div>
+          </q-card-section>
+          <q-card-section class="q-pt-none">
+            <p>Vous êtes sur le point de supprimer votre liste. Êtes vous sûr de vouloir faire ça ?</p>
+          </q-card-section>
+          <q-card-actions align="right" class="text-primary">
+            <q-btn flat color="black" label="Cancel" v-close-popup />
+            <q-btn color="red" label="Supprimer" v-close-popup @click="deleteTaskSubmit" />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
       <q-tabs no-caps active-color="primary" indicator-color="transparent" class="text-grey q-mx-sm tab" v-model="tab">
         <q-btn
         @click="hasHistory()
@@ -16,46 +53,9 @@
               </q-item>
               <q-item clickable @click="prompt = true">
                 <q-item-section>Déplacer</q-item-section>
-                <q-dialog v-model="prompt" persistent>
-                  <q-card style="min-width: 350px">
-                    <q-card-section>
-                      <div class="text-h6">Déplacer la tâche dans une liste</div>
-                    </q-card-section>
-                    <q-card-section class="q-pt-none">
-                      <div class="q-pa-md" style="max-width: 300px">
-                        <div class="q-gutter-md">
-                          <q-badge color="secondary" multi-line>
-                            Sélectionner la liste: "{{ model }}"
-                          </q-badge>
-                          <q-select filled autofocus @keyup.enter="prompt = false" v-model="list" :options=options
-                            label="Standard" emit-value map-options />
-                        </div>
-                      </div>
-                      <!-- <q-input dense v-model="address" autofocus @keyup.enter="prompt = false" /> -->
-                    </q-card-section>
-                    <q-card-actions align="right" class="text-primary">
-                      <q-btn flat color="black" label="Cancel" v-close-popup />
-                      <q-btn class="violet2" label="Déplacer" @click="move" v-close-popup />
-                    </q-card-actions>
-                  </q-card>
-                </q-dialog>
               </q-item>
               <q-item clickable>
                 <q-item-section @click="dialogSup = true">Supprimer</q-item-section>
-                <q-dialog v-model="dialogSup" persistent>
-                  <q-card style="min-width: 350px">
-                    <q-card-section>
-                      <div class="text-h6">Supprimer la liste</div>
-                    </q-card-section>
-                    <q-card-section class="q-pt-none">
-                      <p>Vous êtes sur le point de supprimer votre liste. Êtes vous sûr de vouloir faire ça ?</p>
-                    </q-card-section>
-                    <q-card-actions align="right" class="text-primary">
-                      <q-btn flat color="black" label="Cancel" v-close-popup />
-                      <q-btn color="red" label="Supprimer" v-close-popup @click="deleteTaskSubmit" />
-                    </q-card-actions>
-                  </q-card>
-                </q-dialog>
               </q-item>
             </q-list>
           </q-menu>

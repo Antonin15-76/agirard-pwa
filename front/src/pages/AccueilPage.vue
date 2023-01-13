@@ -1,5 +1,33 @@
 <template>
     <div>
+      <q-dialog v-model="dialogUpdate" persistent>
+        <q-card style="min-width: 350px">
+          <q-card-section>
+            <div class="text-h6">Modifier le nom de la liste</div>
+          </q-card-section>
+          <q-card-section class="q-pt-none" v-for="item in listData" :key="item._id">
+            <q-input dense v-model="item.name" autofocus @keyup.enter=" dialogUpdate = false" />
+          </q-card-section>
+          <q-card-actions align="right" class="text-primary">
+            <q-btn flat color="black" label="Cancel" v-close-popup />
+            <q-btn class="violet" label="Modifier" @click="update" v-close-popup />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
+      <q-dialog v-model="dialog" persistent>
+        <q-card style="min-width: 350px">
+          <q-card-section>
+            <div class="text-h6">Supprimer la liste</div>
+          </q-card-section>
+          <q-card-section class="q-pt-none">
+            <p>Vous êtes sur le point de supprimer votre liste. Êtes vous sûr de vouloir faire ça ?</p>
+          </q-card-section>
+          <q-card-actions align="right" class="text-primary">
+            <q-btn flat color="black" label="Cancel" v-close-popup />
+            <q-btn color="red" label="Supprimer" @click="onSubmitDelete" v-close-popup />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
         <h2 class="title">Bonjour, Tom Dupont!</h2>
       <q-card v-for="item in tasksReactive" :key="item._id" flat bordered class="my-card bg-grey-1">
         <q-card-section>
@@ -13,37 +41,10 @@
                   <q-list>
                     <q-item>
                       <q-item-section @click="dialogOnClick(item._id), dialogUpdate = true">Modifier</q-item-section>
-                        <q-dialog v-model="dialogUpdate" persistent>
-                          <q-card style="min-width: 350px">
-                            <q-card-section>
-                              <div class="text-h6">Modifier le nom de la liste</div>
-                            </q-card-section>
-                            <q-card-section class="q-pt-none" v-for="item in listData" :key="item._id">
-                              <q-input dense v-model="item.name" autofocus @keyup.enter=" dialogUpdate = false" />
-                            </q-card-section>
-                            <q-card-actions align="right" class="text-primary">
-                              <q-btn flat color="black" label="Cancel" v-close-popup />
-                              <q-btn class="violet" label="Modifier" @click="update" v-close-popup />
-                            </q-card-actions>
-                          </q-card>
-                        </q-dialog>
                     </q-item>
                     <q-item clickable>
                       <q-item-section @click="dialogOnClick(item._id, 'delete'), dialog = true">Supprimer</q-item-section>
-                      <q-dialog v-model="dialog" persistent>
-                        <q-card style="min-width: 350px">
-                          <q-card-section>
-                            <div class="text-h6">Supprimer la liste</div>
-                          </q-card-section>
-                          <q-card-section class="q-pt-none">
-                            <p>Vous êtes sur le point de supprimer votre liste. Êtes vous sûr de vouloir faire ça ?</p>
-                          </q-card-section>
-                          <q-card-actions align="right" class="text-primary">
-                            <q-btn flat color="black" label="Cancel" v-close-popup />
-                            <q-btn color="red" label="Supprimer" @click="onSubmitDelete" v-close-popup />
-                          </q-card-actions>
-                        </q-card>
-                      </q-dialog>
+
                     </q-item>
                   </q-list>
                 </q-menu>
